@@ -27,7 +27,19 @@ app.use(
         process.env.CLIENT_URL || "http://localhost:5173",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        "https://bareilly-connect-1.vercel.app",
+        "https://bareilly-connect.vercel.app",
       ];
+
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
       const isLocalDevelopmentOrigin = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin || "");
 
@@ -240,6 +252,7 @@ async function seedAdminUser() {
 
 async function startServer() {
   try {
+    console.log("MONGO_URI exists:", !!process.env.MONGO_URI);
     await mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/localconnect_ai");
     console.log("MongoDB connected");
 
