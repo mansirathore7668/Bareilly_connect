@@ -18,6 +18,8 @@ const uploadRoutes = require("./routes/uploadRoutes");
 const app = express();
 const port = process.env.PORT || 3000;
 
+
+
 app.use(express.json());
 
 app.use(
@@ -41,18 +43,7 @@ app.use(
   })
 );
 
-      const isLocalDevelopmentOrigin = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin || "");
 
-      if (!origin || allowedOrigins.includes(origin) || isLocalDevelopmentOrigin) {
-        callback(null, true);
-        return;
-      }
-
-      callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
-  })
-);
 
 app.get("/", (req, res) => {
   res.send("Welcome to LocalConnect-ai Backend");
